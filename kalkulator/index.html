@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .calculator {
+            max-width: 900px;
+        }
+        .button {
+            height: 60px;
+            width: 60px;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="calculator bg-white rounded-lg shadow-lg p-4">
+        <div id="display" class="bg-blue-500 text-white text-right rounded-t-lg p-4 text-2xl font-bold">0</div>
+        <div class="grid grid-cols-4 gap-2 p-4">
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('%')">%</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('√')">√</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="clearEntry()">CE</button>
+            <button class="button bg-blue-900 text-white rounded-full p-4 text-xl font-bold" onclick="clearDisplay()">C</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('7')">7</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('8')">8</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('9')">9</button>
+            <button class="button bg-red-500 text-white rounded-full p-4 text-xl font-bold" onclick="appendCharacter('-')">-</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('4')">4</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('5')">5</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('6')">6</button>
+            <button class="button bg-blue-500 text-white rounded-full p-4 text-xl font-bold" onclick="appendCharacter('/')">÷</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('1')">1</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('2')">2</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('3')">3</button>
+            <button class="button bg-yellow-500 text-white rounded-full p-4 text-xl font-bold" onclick="appendCharacter('*')">×</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('.')">.</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="appendCharacter('0')">0</button>
+            <button class="button bg-gray-200 rounded-full p-4 text-xl font-bold" onclick="calculateResult()">=</button>
+            <button class="button bg-green-500 text-white rounded-full p-4 text-xl font-bold" onclick="appendCharacter('+')">+</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '';
+
+        function appendCharacter(character) {
+            if (character === '√') {
+                currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+            } else {
+                currentInput += character;
+            }
+            display.textContent = currentInput;
+        }
+
+        function clearEntry() {
+            currentInput = currentInput.slice(0, -1);
+            display.textContent = currentInput || '0';
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            display.textContent = '0';
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput).toString();
+                display.textContent = currentInput;
+            } catch (error) {
+                display.textContent = 'Error';
+                currentInput = '';
+            }
+        }
+    </script>
+</body>
+</html>
